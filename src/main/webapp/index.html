@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>LUNCH</title>
+<link rel='stylesheet' href='static/styles.css'>
+</head>
+<body>
+<center>
+<br>
+<br>
+<div class="eleven">
+<h1>점심 메뉴 추가</h1>
+<div class="container">
+<form action="addLunch" method="post">
+	<table border="1" cellpadding="3" cellspacing="1">
+	<tr>
+		<td><input type="text" name="menu"/></td>
+		<td><input type="submit" value="추가"/></td>
+	</tr>
+	</table>
+</form>
+</div>
+<br>
+<h1>점심 메뉴 목록</h1>
+<div class="container">
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>점심 메뉴</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- 점심 메뉴 목록 -->
+		</tbody>
+	</table>
+	<br>
+	<br>
+	<form action="resetLunches" method="post">
+		<input type="submit" value="메뉴 리셋"/>
+	</form>
+</div>
+</div>
+<br>
+<input type='button' value='메뉴 뽑기' onclick="location.href='select.html'"/>
+<br>
+<br>
+</center>
+</body>
+</html>
