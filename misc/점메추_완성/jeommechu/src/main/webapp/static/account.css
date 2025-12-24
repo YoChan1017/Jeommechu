@@ -1,0 +1,261 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap'); /* 새로운 폰트 추가 */
+
+/*==============================================================================*/
+
+/* 폰트 스타일 */
+.lobster-regular {
+  font-family: "Lobster", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h1, h2 {
+  font-family: "Poppins", sans-serif; /* 점심메뉴추천과 회원가입에 같은 폰트 적용 */
+  font-size: 100px; /* 폰트 크기 일치 */
+  color: #000; /* 검은색으로 설정 */
+  margin: 0; /* 여백 제거 */
+  line-height: 1.2; /* 줄 높이 설정 */
+}
+/*==============================================================================*/
+
+/* 입력창 기본 스타일 */
+input {
+  background-color: #333333;
+  color: #cccccc;
+}
+
+/*==============================================================================*/
+
+/* 전체 페이지 스타일 */
+body {
+  margin: 0;
+  height: 100vh; /* viewport height를 100%로 설정하여 중앙 정렬을 가능하게 함 */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* 상단 정렬 */
+  background: url('../images/foods.jpg') repeat;
+  background-size: auto;
+  background-position: top left;
+  font-family: "Asap", sans-serif;
+}
+
+/* 헤더 스타일 */
+h1 {
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  color: #000; /* 검은색으로 설정 */
+  font-size: 150px; /* 고정된 폰트 사이즈 */
+  transform: scale(0.7); /* 원래 크기의 70%로 줄이기 */
+  transform-origin: center; /* 변환의 기준점을 중앙으로 설정 */
+  margin-top: 20px; /* 상단 여백을 설정하여 페이지 상단과의 거리를 조절 */
+  cursor: pointer; /* 클릭 가능한 요소처럼 보이게 */
+  display: inline-block; /* 애니메이션을 위해 인라인 블록으로 설정 */
+}
+
+h1 span {
+  display: inline-block;
+}
+
+/*==============================================================================*/
+
+/* 로그인 폼 스타일 */
+.login {
+  overflow: hidden;
+  background-color: #ffffff; /* 로그인 폼 배경색을 흰색으로 설정 */
+  padding: 40px 30px 30px 30px;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  transform: translate(-50%, -50%);
+  transition: transform 300ms, box-shadow 300ms;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 음영 색상을 연한 회색으로 변경 */
+}
+
+.login::before, .login::after {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-top-left-radius: 40%;
+  border-top-right-radius: 45%;
+  border-bottom-left-radius: 35%;
+  border-bottom-right-radius: 40%;
+  z-index: -1;
+}
+
+.login::before {
+  left: 40%;
+  bottom: -130%;
+  background-color: rgba(0, 0, 0, 0.1); /* 무채색으로 변경 */
+  animation: wawes 6s infinite linear;
+}
+
+.login::after {
+  left: 35%;
+  bottom: -125%;
+  background-color: rgba(0, 0, 0, 0.2); /* 무채색으로 변경 */
+  animation: wawes 7s infinite;
+}
+
+/* 로그인 입력창 스타일 */
+.login > input {
+  font-family: "Asap", sans-serif;
+  display: block;
+  border-radius: 5px;
+  color: #333; /* 입력창 텍스트 색상 */
+  font-size: 16px;
+  background: #f8f8f8; /* 입력창 배경을 밝은 회색으로 변경 */
+  width: 100%;
+  border: 1px solid #ddd; /* 입력창 테두리 색상을 연한 회색으로 변경 */
+  padding: 10px;
+  margin: 10px 0; /* 마진을 조정하여 요소 간 간격을 설정 */
+}
+
+/* 로그인 버튼 스타일 */
+.login > button {
+  font-family: "Asap", sans-serif;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  width: 100%;
+  border: 0;
+  padding: 10px 0;
+  margin-top: 10px;
+  border-radius: 5px;
+  background-color: #000; /* 버튼 배경을 검은색으로 설정 */
+  transition: background-color 300ms;
+}
+
+.login > button:hover {
+  background-color: #333; /* 버튼 hover 시 배경을 밝은 검은색으로 설정 */
+}
+
+/*==============================================================================*/
+
+/* 링크 스타일 */
+a {
+  text-decoration: none;
+  color: #007bff; /* 링크 색상을 파란색으로 설정 */
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 12px;
+}
+
+/*==============================================================================*/
+
+/* 푸터 텍스트 스타일 */
+.footer-text {
+  position: fixed; /* 화면에 고정 */
+  bottom: 10px; /* 하단에서 10px 떨어지게 */
+  right: 10px;  /* 우측에서 10px 떨어지게 */
+  font-size: 14px;
+  color: #333; /* 원하는 색상으로 변경 가능 */
+  padding: 5px; /* padding 추가 가능 */
+  font-family: 'Satisfy', cursive; /* Satisfy 폰트 적용 */
+}
+
+/*==============================================================================*/
+
+/* 링크 색상 스타일 */
+a:link {
+  color: #007bff; /* 링크 기본 색상 */
+  text-decoration: none;
+}
+
+a:visited {
+  color: #0056b3; /* 방문한 링크 색상 */
+  text-decoration: none;
+}
+
+a:hover {
+  color: #003d7a; /* hover 시 링크 색상 */
+  text-decoration: underline;
+}
+
+a:active {
+  color: #001f3f; /* 클릭한 링크 색상 */
+  text-decoration: none;
+}
+
+/*==============================================================================*/
+
+/* 애니메이션 */
+@keyframes wawes {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bounceOdd {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-50px); /* 더 통통 튀도록 설정 */
+  }
+  50% {
+    transform: translateY(-25px); /* 중간에 약간의 탄성 추가 */
+  }
+  70% {
+    transform: translateY(-50px); /* 다시 튀도록 설정 */
+  }
+}
+
+@keyframes bounceEven {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-50px); /* 더 통통 튀도록 설정 */
+  }
+  50% {
+    transform: translateY(-25px); /* 중간에 약간의 탄성 추가 */
+  }
+  70% {
+    transform: translateY(-50px); /* 다시 튀도록 설정 */
+  }
+}
+
+/* 점심메뉴추천 애니메이션 */
+h1 span {
+  display: inline-block;
+}
+
+h1 span:nth-child(1),
+h1 span:nth-child(2),
+h1 span:nth-child(3) { /* 점, 메, 추 */
+  animation: bounceOdd 1s infinite;
+}
+
+h1 span:nth-child(4),
+h1 span:nth-child(5),
+h1 span:nth-child(6) { /* 심, 뉴, 천 */
+  animation: bounceEven 1s infinite;
+}
+
+/* 회원가입 애니메이션 */
+h2 span {
+  display: inline-block;
+}
+
+h2 span:nth-child(1),
+h2 span:nth-child(2),
+h2 span:nth-child(3) { /* 회, 가 */
+  animation: bounceOdd 1s infinite;
+}
+
+h2 span:nth-child(4),
+h2 span:nth-child(5) { /* 원, 입 */
+  animation: bounceEven 1s infinite;
+}

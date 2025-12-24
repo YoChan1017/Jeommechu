@@ -1,0 +1,82 @@
+use jeommechu;
+
+'CREATE TABLE `member` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `memberID` varchar(50) NOT NULL,
+  `memberPW` varchar(255) NOT NULL,
+  `memberName` varchar(50) DEFAULT NULL,
+  `role` enum(''USER'',''ADMIN'') DEFAULT ''USER'',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `memberID` (`memberID`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+
+'CREATE TABLE `foodlist` (
+  `Num` varchar(255) NOT NULL,
+  `Name` varchar(255) DEFAULT NULL,
+  `AllKcal` decimal(10,2) DEFAULT NULL,
+  `OhKcal` decimal(10,2) DEFAULT NULL,
+  `W` decimal(10,2) DEFAULT NULL,
+  `P` decimal(10,2) DEFAULT NULL,
+  `F` decimal(10,2) DEFAULT NULL,
+  `C` decimal(10,2) DEFAULT NULL,
+  `S` decimal(10,2) DEFAULT NULL,
+  `Na` decimal(10,2) DEFAULT NULL,
+  `SF` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`Num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+
+'CREATE TABLE `lunch` (
+  `lunch_id` int NOT NULL AUTO_INCREMENT,
+  `foodlist_num` varchar(255) DEFAULT NULL,
+  `member_id` int DEFAULT NULL,
+  PRIMARY KEY (`lunch_id`),
+  KEY `fk_foodlist` (`foodlist_num`),
+  KEY `fk_member` (`member_id`),
+  CONSTRAINT `fk_foodlist` FOREIGN KEY (`foodlist_num`) REFERENCES `foodlist` (`Num`) ON DELETE SET NULL,
+  CONSTRAINT `fk_member` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+
+
+===============================================================================
+
+
+USE jeommechu;
+
+-- `member` 테이블 생성
+CREATE TABLE `member` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `memberID` varchar(50) NOT NULL,
+  `memberPW` varchar(255) NOT NULL,
+  `memberName` varchar(50) DEFAULT NULL,
+  `role` enum('USER','ADMIN') DEFAULT 'USER',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `memberID` (`memberID`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- `foodlist` 테이블 생성
+CREATE TABLE `foodlist` (
+  `Num` varchar(255) NOT NULL,
+  `Name` varchar(255) DEFAULT NULL,
+  `AllKcal` decimal(10,2) DEFAULT NULL,
+  `OhKcal` decimal(10,2) DEFAULT NULL,
+  `W` decimal(10,2) DEFAULT NULL,
+  `P` decimal(10,2) DEFAULT NULL,
+  `F` decimal(10,2) DEFAULT NULL,
+  `C` decimal(10,2) DEFAULT NULL,
+  `S` decimal(10,2) DEFAULT NULL,
+  `Na` decimal(10,2) DEFAULT NULL,
+  `SF` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`Num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- `lunch` 테이블 생성
+CREATE TABLE `lunch` (
+  `lunch_id` int NOT NULL AUTO_INCREMENT,
+  `foodlist_num` varchar(255) DEFAULT NULL,
+  `member_id` int DEFAULT NULL,
+  PRIMARY KEY (`lunch_id`),
+  KEY `fk_foodlist` (`foodlist_num`),
+  KEY `fk_member` (`member_id`),
+  CONSTRAINT `fk_foodlist` FOREIGN KEY (`foodlist_num`) REFERENCES `foodlist` (`Num`) ON DELETE SET NULL,
+  CONSTRAINT `fk_member` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사다리 게임 - 점심 메뉴 뽑기</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cute+Font&display=swap">
+    <style>
+        /* 기본 스타일링 설정 */
+        body, html {
+            height: 100%;  
+            margin: 0;  
+            display: flex;  
+            justify-content: center;  
+            align-items: center;  
+            font-family: 'Cute Font', cursive;  
+            background-image: url('path/to/your/image.png');  
+            background-size: cover;  
+            background-position: center;  
+            background-repeat: no-repeat;  
+            background-attachment: fixed;  
+        }
+
+        /* 게임 컨테이너 스타일링 */
+        .ladder-game-container {
+            text-align: center;  
+            background-color: rgba(255, 255, 255, 0.9);  
+            padding: 30px;  
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);  
+            border-radius: 15px;  
+            transition: transform 0.2s, box-shadow 0.2s;  
+        }
+
+        .ladder-game-container:hover {
+            transform: translateY(-5px);  
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);  
+        }
+
+        /* 사다리 게임 캔버스 스타일링 */
+        #ladderCanvas {
+            display: block;  
+            margin: 20px auto;  
+            border: 2px dashed #ff6699;  
+            border-radius: 20px;  
+        }
+
+        /* 폼 스타일링 */
+        form {
+            margin-bottom: 20px;  
+        }
+
+        /* 헤딩 스타일링 */
+        h1 {
+            font-size: 36px;  
+            margin-bottom: 20px;  
+            color: #ff6699;  
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);  
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;  
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 라벨 스타일링 */
+        label {
+            font-size: 24px;  
+            color: #ff6699;  
+            letter-spacing: 1px;  
+        }
+
+        /* 입력 필드 스타일링 */
+        input[type="number"] {
+            font-size: 20px;  
+            border-radius: 5px;  
+            padding: 5px;  
+            border: 1px solid #ccc;  
+        }
+
+        /* 버튼 스타일링 */
+        button {
+            font-size: 22px;  
+            padding: 10px 20px;  
+            border: none;  
+            border-radius: 5px;  
+            background-color: #ffcccb;  
+            cursor: pointer;  
+            color: #fff;  
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;  
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);  
+        }
+
+        button:hover {
+            background-color: #ff9999;  
+            transform: translateY(-2px);  
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);  
+        }
+
+        button:active {
+            transform: translateY(0);  
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);  
+        }
+
+        /* 고정 버튼 컨테이너 스타일링 */
+        .fixed-buttons {
+            position: fixed;  
+            bottom: 20px;  
+            right: 20px;  
+            display: flex;  
+            flex-direction: column;  
+            gap: 10px;  
+        }
+
+        /* 고정 버튼 스타일링 */
+        .fixed-button {
+            padding: 10px 20px;  
+            font-size: 20px;  
+            background-color: #ffcccb;  
+            color: #fff;  
+            border: none;  
+            border-radius: 5px;  
+            cursor: pointer;  
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;  
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);  
+        }
+
+        .fixed-button:hover {
+            background-color: #ff9999;  
+            transform: translateY(-2px);  
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);  
+        }
+
+        .fixed-button:active {
+            transform: translateY(0);  
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);  
+        }
+    </style>
+</head>
+<body>
+    <!-- 게임 컨테이너 -->
+    <div class="ladder-game-container">
+        <h1>사다리 게임 - 점심 메뉴 뽑기</h1>
+        
+        <!-- 메뉴 리스트 컨테이너 -->
+        <div id="menuListContainer" style="margin-bottom: 20px;">           
+            <ul id="menuList" style="list-style-type: none; padding: 0;"></ul>
+        </div>
+        
+        <!-- 사다리 게임 시작 폼 -->
+        <form id="ladderForm">
+            <label for="playerStart">시작 위치 고르기!!</label>
+            <input type="number" id="playerStart" name="playerStart" required>
+            <button type="submit">게임 시작</button>
+        </form>
+
+        <!-- 사다리 게임 캔버스 -->
+        <canvas id="ladderCanvas" width="1000" height="600"></canvas>
+
+        <!-- 선택된 메뉴 표시 -->
+        <div id="selectedMenuContainer" style="margin-top: 20px;">
+            <h2>선택된 메뉴: <span id="selectedMenu">-</span></h2>
+        </div>
+    </div>               
+
+    <script>
+        let foods = []; // 서버에서 가져온 음식 목록
+        let maxPlayers = 5; // 플레이어의 최대 수를 동적으로 설정
+
+        /* 서버에서 메뉴 리스트를 가져오는 함수 */
+        function fetchFoodList() {
+            fetch('getLunches?format=json')
+            .then(response => {
+                console.log('Response status:', response.status); // 응답 상태 코드 출력
+                return response.json();
+            })
+            .then(data => {
+                console.log('Fetched data:', data); // 응답 데이터 출력
+                if (Array.isArray(data) && data.length > 0 && data[0].menu) {
+                    foods = data.map(item => item.menu);  // 메뉴 리스트 파싱
+                    console.log('Parsed foods:', foods); // 파싱된 메뉴 리스트 출력
+                    displayMenuList(foods);  // 메뉴 리스트 화면에 표시
+                } else {
+                    console.error('Unexpected data format:', data); // 데이터 형식이 예상과 다를 경우 오류 출력
+                }
+            })
+            .catch(error => console.error('Error fetching food list:', error));  // 데이터 가져오기 실패 시 오류 출력
+        }
+
+        /* 메뉴 리스트를 화면에 표시하는 함수 */
+        function displayMenuList(foods) {
+            const menuListElement = document.getElementById('menuList');
+            menuListElement.innerHTML = ''; // 기존 리스트 초기화
+            foods.forEach(food => {
+                const li = document.createElement('li');
+                li.textContent = food;
+                menuListElement.appendChild(li);
+            });
+        }
+
+        window.onload = fetchFoodList;  // 페이지 로드 시 메뉴 리스트를 가져오는 함수 호출
+
+        /* 사다리 게임 폼 제출 시 이벤트 핸들러 */
+        document.getElementById('ladderForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const playerStart = document.getElementById('playerStart').value;
+
+            fetch('LadderGame.do', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'playerStart=' + playerStart
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Selected menu:', data.selectedMenu);
+                const randomLadder = generateRandomLadder(data.ladder.length, data.menus.length);
+                data.ladder = randomLadder;
+                animateLadder(data);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        /* 랜덤한 사다리를 생성하는 함수 */
+        function generateRandomLadder(rows, cols) {
+            let ladder = [];
+            for (let i = 0; i < rows; i++) {
+                let row = new Array(cols - 1).fill(false);
+                let hasRung = false;
+                let previous = -1;
+
+                if (Math.random() > 0.3 && i === 0) {
+                    row[0] = true;
+                    hasRung = true;
+                    previous = 0;
+                }
+
+                for (let j = 0; j < cols - 1; j++) {
+                    let shouldPlaceRung = Math.random() > 0.5;
+
+                    if (shouldPlaceRung && j !== previous + 1) {
+                        if (j > 0 && row[j - 1]) continue;
+                        if (j < cols - 2 && row[j + 1]) continue;
+
+                        row[j] = true;
+                        hasRung = true;
+                        previous = j;
+
+                        let skip = Math.floor(Math.random() * 2) + 1;
+                        j += skip - 1;
+                    }
+                }
+
+                if (!hasRung) {
+                    let forcedRungPosition;
+                    do {
+                        forcedRungPosition = Math.floor(Math.random() * (cols - 1));
+                    } while (
+                        (forcedRungPosition === previous + 1 || 
+                        (forcedRungPosition > 0 && row[forcedRungPosition - 1]) || 
+                        (forcedRungPosition < cols - 2 && row[forcedRungPosition + 1]))
+                    );
+
+                    row[forcedRungPosition] = true;
+                }
+
+                ladder.push(row);
+            }
+            return ladder;
+        }
+
+        /* 사다리 게임을 그리는 함수 */
+        function drawLadder(ctx, ladderWidth, ladderHeight, numberOfLines, data) {
+            const lineSpacing = ladderWidth / (numberOfLines - 1);
+            const rungSpacing = ladderHeight / (data.ladder.length + 1);
+
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 8;
+
+            const fontSize = Math.min(30, ladderWidth / numberOfLines / 1.5);
+            ctx.font = `${fontSize}px 'Cute Font', cursive`;
+            ctx.textAlign = "center";
+            ctx.fillStyle = "black";
+
+            for (let i = 0; i < numberOfLines; i++) {
+                ctx.fillText(i + 1, lineSpacing * i + 50, 30);
+                ctx.fillText(data.menus[i], lineSpacing * i + 50, ladderHeight + 80);
+
+                ctx.beginPath();
+                ctx.moveTo(lineSpacing * i + 50, 50);
+                ctx.lineTo(lineSpacing * i + 50, 50 + ladderHeight);
+                ctx.stroke();
+            }
+
+            ctx.setLineDash([]);
+            ctx.lineWidth = 6;
+            for (let i = 0; i < data.ladder.length; i++) {
+                for (let j = 0; j < data.ladder[i].length; j++) {
+                    if (data.ladder[i][j]) {
+                        ctx.strokeStyle = "black";
+                        ctx.beginPath();
+                        const startX = lineSpacing * j + 50;
+                        const endX = lineSpacing * (j + 1) + 50;
+                        const currentY = rungSpacing * (i + 1) + 50;
+
+                        ctx.moveTo(startX, currentY);
+                        ctx.lineTo(endX, currentY);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        /* 사다리 게임을 애니메이션 처리하는 함수 */
+        function animateLadder(data) {
+            const canvas = document.getElementById('ladderCanvas');
+            const ctx = canvas.getContext('2d');
+            const ladderWidth = canvas.width - 100;
+            const ladderHeight = canvas.height - 100;
+            const numberOfLines = data.menus.length;
+            const lineSpacing = ladderWidth / (numberOfLines - 1);
+            const rungSpacing = ladderHeight / (data.ladder.length + 1);
+
+            drawLadder(ctx, ladderWidth, ladderHeight, numberOfLines, data);
+
+            let currentX = parseInt(document.getElementById('playerStart').value, 10) - 1;
+            let currentY = 0;
+
+            if (isNaN(currentX) || currentX < 0 || currentX >= numberOfLines) {
+                alert('올바른 시작 위치를 선택하세요.');
+                return;
+            }
+
+            ctx.strokeStyle = "red";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(lineSpacing * currentX + 50, 50);
+
+            function move() {
+                if (currentY <= data.ladder.length) {  // 마지막까지 도달하기 위해 '<' 대신 '<=' 사용
+                    const targetY = rungSpacing * (currentY + 1) + 50;
+
+                    const animateVertical = () => {
+                        const nextY = ctx.currentY + 6;
+                        if (nextY > targetY) {
+                            ctx.currentY = targetY;
+                        } else {
+                            ctx.currentY = nextY;
+                        }
+
+                        ctx.lineTo(lineSpacing * currentX + 50, ctx.currentY);
+                        ctx.stroke();
+
+                        if (ctx.currentY < targetY) {
+                            requestAnimationFrame(animateVertical);
+                        } else {
+                            let horizontalMove = 0;
+
+                            if (currentX > 0 && data.ladder[currentY] && data.ladder[currentY][currentX - 1]) {
+                                horizontalMove = -1;
+                            } else if (currentX < numberOfLines - 1 && data.ladder[currentY] && data.ladder[currentY][currentX]) {
+                                horizontalMove = 1;
+                            }
+
+                            if (horizontalMove !== 0) {
+                                const targetX = lineSpacing * (currentX + horizontalMove) + 50;
+                                const animateHorizontal = () => {
+                                    const nextX = ctx.currentX + 6 * horizontalMove;
+                                    if ((horizontalMove > 0 && nextX > targetX) || (horizontalMove < 0 && nextX < targetX)) {
+                                        ctx.currentX = targetX;
+                                    } else {
+                                        ctx.currentX = nextX;
+                                    }
+
+                                    ctx.lineTo(ctx.currentX, targetY);
+                                    ctx.stroke();
+
+                                    if (ctx.currentX !== targetX) {
+                                        requestAnimationFrame(animateHorizontal);
+                                    } else {
+                                        currentX += horizontalMove;
+                                        currentY++;
+                                        move();
+                                    }
+                                };
+                                requestAnimationFrame(animateHorizontal);
+                            } else {
+                                currentY++;
+                                move();
+                            }
+                        }
+                    };
+
+                    ctx.currentX = lineSpacing * currentX + 50;
+                    ctx.currentY = rungSpacing * currentY + 50;
+                    animateVertical();
+                } else {
+                    document.getElementById('selectedMenu').textContent = data.menus[currentX];
+                    alert(`결정된 메뉴는 ${data.menus[currentX]}입니다!`);
+                }
+            }
+
+            move();
+        }
+    </script>
+
+    <!-- 버튼 컨테이너 -->
+    <div class="button-container">
+        <form action="gameSelect" method="get">
+            <button type="submit" class="btn-3d purple">게임 고르기</button>
+        </form>
+        <form action="getLunches" method="get">
+            <button type="submit" class="btn-3d purple">메뉴 등록하기</button>
+        </form>
+    </div>
+</body>
+</html>

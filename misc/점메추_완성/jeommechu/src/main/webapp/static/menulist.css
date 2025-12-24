@@ -1,0 +1,120 @@
+body {
+    background-color: #524d4d; /* 회색 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#menu-list-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 10%; /* 상단 여백을 10%로 설정 */
+}
+
+.container {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-height: 80vh; /* 최대 높이를 80vh로 설정 */
+    overflow-y: auto; /* 스크롤을 추가 */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color: black;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+.search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 0 auto; /* 중앙 정렬 */
+}
+
+.search-form input[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.search-form button {
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #534bc7; /* 파란색 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.search-form button:hover {
+    background-color: #45a049;
+}
+
+.main-button {
+    background-color: #534bc7; /* 녹색 */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.main-button:hover {
+    background-color: #45a049;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+.footer-text {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 14px;
+    color: #333;
+    padding: 5px;
+    font-family: 'Satisfy', cursive;
+}
+
+a:link {
+    color: pink;
+    text-decoration: none;
+}
+
+a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+a:active {
+    color: green;
+    text-decoration: none;
+}
