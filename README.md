@@ -40,4 +40,6 @@ Project_01_JEOMMECHU
 
 ## 주요 파일 및 기능
 
+![그림1](https://github.com/user-attachments/assets/e7b82e46-b385-4e52-b0a2-582214848215)
+
 
