@@ -1,172 +1,402 @@
 # 🍱 JEOMMECHU (점메추)
-### 점심 메뉴 추천 웹 애플리케이션
 
+> **Java Servlet 기반 점심 메뉴 추천 웹 애플리케이션**
+>
 > 퍼블릭 클라우드 DevSecOps 융합 인재 양성 과정 | Project 01
 
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
 ![Servlet](https://img.shields.io/badge/Servlet-007396?style=flat-square&logo=java&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
 ![Apache Tomcat](https://img.shields.io/badge/Apache_Tomcat-F8DC75?style=flat-square&logo=apachetomcat&logoColor=black)
-![HTML](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
-![CSS](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
 
 ---
 
-## 📌 프로젝트 개요
+## 📌 프로젝트 소개
 
-**점메추(JEOMMECHU)** 는 사용자가 로그인 후 저장된 음식 데이터를 기반으로 점심 메뉴를 추천받거나 직접 선택할 수 있는 **Java Servlet 기반 웹 애플리케이션**입니다.
+**JEOMMECHU(점메추)​**는 사용자가 로그인한 후 음식 데이터를 조회하고, 원하는 메뉴를 직접 선택하거나 **사다리 게임을 이용해 점심 메뉴를 랜덤으로 추천받을 수 있는 Java Servlet 기반 웹 애플리케이션**입니다.
 
-단순한 메뉴 조회를 넘어, **사다리 게임** 등 방식의 랜덤 메뉴 추천 기능을 통해 재미 요소를 더했습니다.
+Java Servlet과 JDBC를 사용하여 웹 요청 처리부터 데이터베이스 연동, 세션 기반 로그인, 메뉴 추천 기능까지 웹 애플리케이션의 기본적인 동작 구조를 직접 구현했습니다.
 
----
+### 프로젝트 목표
 
-## 🎯 개발 목적
-
-| 목표 | 내용 |
-|------|------|
-| 웹 구조 이해 | Java Servlet 기반 MVC 흐름 학습 |
-| DB 연동 | JDBC를 활용한 MySQL 데이터베이스 연동 |
-| 코드 구조화 | DAO / VO 패턴 적용으로 계층 분리 |
-| 배포 실습 | WAR 패키징 및 Apache Tomcat 배포 |
+- Java Servlet 기반 웹 애플리케이션의 요청 처리 흐름 이해
+- JDBC를 활용한 MySQL 데이터베이스 연동
+- DAO / VO 구조를 통한 데이터 접근 로직 분리
+- Session 기반 로그인 및 권한 관리 구현
+- WAR 패키징 및 Apache Tomcat 배포 경험
+- Canvas API와 Fetch API를 활용한 인터랙티브 기능 구현
 
 ---
 
-## 🛠️ 기술 스택
+## 🛠 기술 스택
 
-| 분류 | 기술 |
-|------|------|
-| Backend | Java, Servlet (Jakarta EE) |
-| Database | MySQL, JDBC |
-| Frontend | HTML5, CSS3, JavaScript (Canvas API) |
-| Server | Apache Tomcat (WAR 배포) |
-| Pattern | DAO / VO, MVC |
+| 구분 | 기술 |
+|---|---|
+| Language | Java |
+| Backend | Java Servlet (Jakarta EE) |
+| Database | MySQL |
+| Data Access | JDBC |
+| Frontend | HTML5 · CSS3 · JavaScript |
+| Web API | Canvas API · Fetch API |
+| Server | Apache Tomcat |
+| Architecture | MVC |
+| Design Pattern | DAO · VO |
+| Deployment | WAR |
+
+---
+
+## ✨ 주요 기능
+
+### 1. 🔐 회원 인증
+
+사용자 계정을 관리하고 로그인 상태를 유지할 수 있도록 구현했습니다.
+
+- 회원가입
+- 로그인
+- 로그아웃
+- Session 기반 로그인 상태 유지
+- `USER` / `ADMIN` 역할 구분
+
+---
+
+### 2. 🍱 메뉴 목록 조회
+
+저장된 음식 데이터를 조회하여 사용자가 다양한 메뉴와 영양 정보를 확인할 수 있습니다.
+
+- 전체 음식 목록 조회
+- 음식 검색
+- 음식 영양 정보 표시
+- 칼로리 및 주요 영양소 데이터 제공
+
+---
+
+### 3. 🍚 점심 메뉴 선택
+
+사용자가 원하는 음식을 직접 선택하여 오늘의 점심 메뉴로 등록할 수 있습니다.
+
+- 메뉴 카테고리 선택
+- 오늘의 점심 등록
+- 등록된 점심 내역 조회 및 관리
+
+---
+
+### 4. 🎲 사다리 게임을 이용한 랜덤 추천
+
+점심 메뉴를 직접 고르기 어려운 사용자를 위해 Canvas 기반의 사다리 게임을 구현했습니다.
+
+- JavaScript Canvas API를 활용한 사다리 UI
+- 서버에서 메뉴 카테고리 데이터를 Fetch API로 조회
+- 서버 데이터 기반 사다리 항목 동적 구성
+- 사다리 결과를 이용한 랜덤 메뉴 선택
+- 애니메이션 효과 적용
+
+---
+
+## 🏗️ 애플리케이션 구조
+
+```text
+Browser
+   │
+   │ HTTP GET / POST
+   ▼
+┌─────────────────────┐
+│     Servlet         │
+│     Controller      │
+│                     │
+│ - 요청 처리          │
+│ - Session 검증       │
+│ - Parameter 처리     │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│        DAO          │
+│    Data Access      │
+│                     │
+│ - JDBC Connection   │
+│ - SQL 실행           │
+│ - 데이터 조회/저장    │
+└──────────┬──────────┘
+           │
+           ▼
+       MySQL DB
+```
+
+### 데이터 처리 흐름
+
+```text
+HTTP Request
+     ↓
+Servlet
+     ↓
+Session / Parameter Validation
+     ↓
+DAO
+     ↓
+PreparedStatement
+     ↓
+MySQL
+     ↓
+VO
+     ↓
+Servlet
+     ↓
+HTML Response / Redirect
+```
 
 ---
 
 ## 📂 프로젝트 구조
 
-```
+```text
 jeommechu/
 ├── src/main/java/com/jeommechu/
 │   ├── menu/
-│   │   ├── common/        # JDBCUtil (DB 연결 유틸리티)
-│   │   ├── user/          # MemberVO, MemberDAO (회원 관리)
-│   │   ├── menulist/      # MenuListVO, MenuListDAO (메뉴 목록)
-│   │   └── lunch/         # LunchVO, LunchDAO (오늘의 점심)
+│   │   ├── common/
+│   │   │   └── JDBCUtil.java
+│   │   ├── user/
+│   │   │   ├── MemberVO.java
+│   │   │   └── MemberDAO.java
+│   │   ├── menulist/
+│   │   │   ├── MenuListVO.java
+│   │   │   └── MenuListDAO.java
+│   │   └── lunch/
+│   │       ├── LunchVO.java
+│   │       └── LunchDAO.java
+│   │
 │   └── web/
-│       ├── account/       # 로그인 / 회원가입 서블릿
-│       ├── menulist/      # 메뉴 목록 서블릿
-│       └── lunch/         # 점심 선택 / 추천 서블릿
+│       ├── account/
+│       │   └── 로그인 / 회원가입 Servlet
+│       ├── menulist/
+│       │   └── 메뉴 목록 Servlet
+│       └── lunch/
+│           └── 점심 선택 / 추천 Servlet
+│
 └── src/main/webapp/
-    ├── static/            # CSS (account.css, main.css)
-    └── LadderGame.html    # 사다리 게임 페이지
+    ├── static/
+    │   └── CSS
+    └── LadderGame.html
 ```
 
 ---
 
 ## 🗄️ 데이터베이스 설계
 
-### ERD 요약
+프로젝트에서는 회원, 음식 정보, 점심 선택 기록을 중심으로 관계형 데이터베이스를 구성했습니다.
 
+### ERD
+
+```text
+┌─────────────────────┐
+│       member        │
+├─────────────────────┤
+│ id (PK)             │
+│ memberID (UNIQUE)   │
+│ memberPW            │
+│ memberName          │
+│ role                │
+└──────────┬──────────┘
+           │
+           │ 1:N
+           ▼
+┌─────────────────────┐
+│        lunch        │
+├─────────────────────┤
+│ lunch_id (PK)       │
+│ member_id (FK)      │
+│ foodlist_num (FK)   │
+└──────────┬──────────┘
+           │
+           │ N:1
+           ▼
+┌─────────────────────┐
+│      foodlist       │
+├─────────────────────┤
+│ Num (PK)            │
+│ Name                │
+│ AllKcal             │
+│ OhKcal              │
+│ W                   │
+│ P                   │
+│ F                   │
+│ C                   │
+│ S                   │
+│ Na                  │
+│ SF                  │
+└─────────────────────┘
 ```
-member ──────────────┐
-  id (PK)            │ FK: member_id
-  memberID (UNIQUE)  │
-  memberPW           │
-  memberName         │
-  role (USER/ADMIN)  │
-                     ▼
-                  lunch
-                  lunch_id (PK)
-                  foodlist_num (FK)──────► foodlist
-                  member_id (FK)            Num (PK)
-                                            Name
-                                            AllKcal / OhKcal
-                                            W / P / F / C / S / Na / SF
-```
 
-### 테이블 설명
+### 테이블 역할
 
-**`member`** — 회원 정보 테이블
-- `role` 컬럼으로 USER / ADMIN 권한 구분
+#### `member`
 
-**`foodlist`** — 음식 영양 정보 테이블
-- 총 칼로리, 탄수화물, 단백질, 지방 등 영양소 데이터 포함
+사용자 계정 및 권한 정보를 저장합니다.
 
-**`lunch`** — 오늘의 점심 선택 기록 테이블
-- `foodlist`와 `member`를 연결하는 중간 테이블
+- 회원 ID
+- 비밀번호
+- 이름
+- 사용자 역할
+- `USER` / `ADMIN` 권한 구분
+
+#### `foodlist`
+
+음식과 관련된 영양 정보를 저장합니다.
+
+- 음식명
+- 총 칼로리
+- 탄수화물
+- 단백질
+- 지방
+- 당류
+- 나트륨
+- 포화지방 등
+
+#### `lunch`
+
+사용자의 점심 선택 기록을 관리합니다.
+
+- 회원 정보와 음식 정보 연결
+- 오늘의 점심 선택 기록 저장
 
 ---
 
-## ⚙️ 주요 기능
+## 🔧 주요 구현 내용
 
-### 1. 회원 인증
-- 회원가입 / 로그인 / 로그아웃
-- Session 기반 로그인 유지
-- ADMIN / USER 역할 구분
+### 1. DAO 패턴을 이용한 데이터 접근 로직 분리
 
-### 2. 메뉴 목록 조회
-- 전체 음식 목록 및 영양 정보 표시
-- 검색 기능으로 메뉴 필터링
+Servlet에서 직접 데이터베이스 처리 로직을 수행하지 않고, DAO를 별도로 구성하여 데이터 접근 책임을 분리했습니다.
 
-### 3. 점심 선택
-- 원하는 카테고리를 직접 선택하여 오늘의 점심으로 등록
-- 등록된 점심 내역 확인 및 관리
+```text
+Servlet
+   ↓
+DAO
+   ↓
+JDBC
+   ↓
+MySQL
+```
 
-### 4. 🎲 사다리 게임 (랜덤 추천)
-- Canvas API로 구현된 애니메이션 사다리 게임
-- 서버에서 카테고리 목록을 fetch로 받아 실시간 렌더링
-- 사다리 결과에 따라 랜덤으로 점심 메뉴 결정
+이를 통해 웹 요청 처리와 데이터베이스 접근 로직을 분리하여 코드 구조를 구성했습니다.
 
 ---
 
-## 🔄 서블릿 처리 흐름
+### 2. PreparedStatement를 이용한 SQL 처리
 
+사용자 입력값을 SQL에 직접 문자열로 조합하지 않고 `PreparedStatement`를 사용하여 데이터베이스 쿼리를 수행했습니다.
+
+```text
+사용자 입력
+    ↓
+PreparedStatement
+    ↓
+SQL 실행
+    ↓
+MySQL
 ```
-브라우저 요청 (HTTP GET/POST)
-        │
-        ▼
-  Servlet (Controller)
-  ├── 세션 검증
-  ├── 파라미터 파싱
-  └── DAO 호출
-        │
-        ▼
-    DAO (Data Access)
-    ├── JDBCUtil.getConnection()
-    ├── PreparedStatement 실행
-    └── VO 객체 반환
-        │
-        ▼
-  Servlet → HTML 응답 (out.println)
-  또는 redirect
+
+이를 통해 파라미터 바인딩을 적용한 데이터베이스 처리를 경험했습니다.
+
+---
+
+### 3. Session 기반 인증 및 권한 처리
+
+로그인한 사용자의 상태를 Session으로 관리하고, 사용자 역할에 따라 `USER`와 `ADMIN`을 구분했습니다.
+
+```text
+Login
+  ↓
+Session 생성
+  ↓
+사용자 정보 저장
+  ↓
+페이지 접근
+  ↓
+Session / Role 확인
 ```
 
 ---
 
-## 💡 구현 포인트
+### 4. Canvas 기반 사다리 게임
 
-- **DAO 패턴**: DB 접근 로직을 서블릿과 분리하여 유지보수성 향상
-- **PreparedStatement**: SQL 인젝션 방지 및 파라미터 바인딩
-- **Session 관리**: 로그인 상태 유지 및 권한 검증
-- **Canvas 사다리 게임**: 순수 JavaScript로 사다리 생성 및 애니메이션 구현, Fetch API를 통해 서버 데이터 비동기 수신
-- **애니메이션 UI**: CSS `@keyframes`로 제목 바운스 효과 및 로그인 폼 웨이브 효과 구현
+JavaScript의 Canvas API를 사용하여 사다리 게임을 직접 구현했습니다.
+
+서버에서 Fetch API를 통해 음식 카테고리를 전달받고, 전달받은 데이터를 기반으로 화면에 사다리를 동적으로 구성하도록 구현했습니다.
+
+```text
+서버
+ ↓
+카테고리 데이터
+ ↓
+Fetch API
+ ↓
+Canvas
+ ↓
+사다리 생성 / 애니메이션
+ ↓
+최종 추천 결과
+```
+
+---
+
+### 5. CSS 애니메이션
+
+정적인 웹 페이지에 사용자 경험을 더하기 위해 CSS `@keyframes`를 이용한 애니메이션을 적용했습니다.
+
+- 제목 바운스 효과
+- 로그인 폼 웨이브 효과
+- 페이지 UI 인터랙션 강화
+
+---
+
+## 🚀 배포
+
+애플리케이션을 WAR 형태로 패키징하여 **Apache Tomcat 환경에 배포**하는 과정을 경험했습니다.
+
+```text
+Java Application
+      ↓
+    WAR
+      ↓
+Apache Tomcat
+      ↓
+Web Application
+```
+
+이를 통해 애플리케이션 개발뿐 아니라 웹 서버 환경에서 배포하는 과정까지 경험했습니다.
 
 ---
 
 ## 📸 화면 구성
 
-| 페이지 | 설명 |
-|--------|------|
-| 로그인 / 회원가입 | 웨이브 애니메이션 배경의 폼 UI |
-| 메뉴 목록 | 전체 음식 리스트 + 검색 기능 |
-| 점심 선택 | 오늘의 점심 등록 및 확인 |
-| 사다리 게임 | Canvas 기반 인터랙티브 랜덤 추천 |
+| 화면 | 설명 |
+|---|---|
+| 로그인 / 회원가입 | Session 기반 사용자 인증 |
+| 메뉴 목록 | 음식 목록 및 영양 정보 조회 |
+| 점심 선택 | 원하는 메뉴를 점심으로 등록 |
+| 사다리 게임 | Canvas 기반 랜덤 메뉴 추천 |
 
 ---
 
-## 📝 회고
+## 📚 프로젝트를 통해 배운 점
 
-이 프로젝트를 통해 **Java 웹 애플리케이션의 전체 흐름**을 처음부터 끝까지 직접 구현해보는 경험을 쌓았습니다.
+이 프로젝트를 통해 **Java 웹 애플리케이션의 기본적인 요청 처리 구조를 처음부터 직접 구현**해보았습니다.
 
-프레임워크 없이 순수 Servlet과 JDBC만으로 개발하면서, Spring이나 JPA 같은 프레임워크가 어떤 문제를 해결해 주는지 체감할 수 있었고, 이를 통해 기반 기술에 대한 이해를 깊이 있게 다질 수 있었습니다.
+특히 Spring과 같은 프레임워크를 사용하지 않고 Java Servlet과 JDBC를 직접 사용하면서 다음과 같은 기반 기술을 이해할 수 있었습니다.
+
+- HTTP 요청과 Servlet 처리 흐름
+- Session 기반 인증 및 권한 관리
+- JDBC를 이용한 데이터베이스 연동
+- DAO / VO를 이용한 계층 분리
+- PreparedStatement를 이용한 SQL 처리
+- WAR 패키징 및 Tomcat 배포
+- Fetch API와 Canvas API를 이용한 클라이언트 기능 구현
+
+이후 Spring과 같은 웹 프레임워크를 학습하면서 **프레임워크가 이러한 반복적인 웹 애플리케이션 기능을 어떻게 추상화하고 관리하는지 이해하는 기반**으로 활용했습니다.
+
+---
+
+## 🔗 Repository
+
+[GitHub - YoChan1017/Jeommechu](https://github.com/YoChan1017/Jeommechu)
